@@ -60,7 +60,8 @@ class MapEvent extends flash.events.Event
            
     public function new(event:String, point:LngLat = null) {  
          super(event);  
-         this.point = point;     
+         this.point = point; 
+         trace("New MapEvent "+event+" "+point);    
     }  
 }     
 
@@ -78,7 +79,7 @@ class Canvas extends Component
     var thtimer:Timer;
     var mappoint:LngLat;
     public var mousethreshold:Int;  //the minimal number of pixels that have to be passed in order to start moving
-    public var transparent(default, setTransparent):Bool;
+    public var transparent(default, set):Bool;
 
     public function new(interactive:Bool = true)
     {
@@ -504,7 +505,7 @@ class Canvas extends Component
     /*============================================================================================== 
       PRIVATE methods
      *==============================================================================================*/
-    function setTransparent(val:Bool): Bool
+    function set_transparent(val:Bool): Bool
     {
         this.transparent = val;
 
@@ -522,7 +523,7 @@ class Canvas extends Component
 
     override function onResize(w:Float, h:Float)
     {
-        setTransparent(this.transparent);
+        set_transparent(this.transparent);
         scrollRect = new Rectangle(0, 0, w, h);
 
         //trace("Canvas resized w:"+w+" h:"+h);

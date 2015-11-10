@@ -1,5 +1,5 @@
 package haxemap;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import haxemap.core.Canvas;
 import haxemap.core.LngLat;
 import haxemap.core.TileLayer;
@@ -7,7 +7,10 @@ import haxemap.core.MapService;
 import haxemap.ui.Button;
 import haxemap.ui.ToolBar;
 import haxemap.ui.StatusBar;
-import nme.events.Event;
+import flash.events.Event;
+import haxemap.core.Layer;
+import flash.geom.Point;
+import flash.events.MouseEvent;
 
 /**
  * ...
@@ -17,7 +20,7 @@ import nme.events.Event;
 class Map extends Sprite
 {
 	public var canvas:Canvas;
-    public var toolbar:Sprite;
+    public var toolbar:ToolBar;
     public var layer:InteractiveLayer;
 
 	public function new()  
@@ -27,15 +30,16 @@ class Map extends Sprite
 	
 	public function init()
 	{
-		//toolbar = new ToolBar();
-		toolbar = new Sprite();
+		toolbar = new ToolBar();
+		//toolbar = new Sprite();
         canvas = new Canvas();
         layer = new InteractiveLayer();
 		
         toolbar.x = toolbar.y = 20;
         canvas.move(0, 0);
         //canvas.setCenter(new LngLat(16.685218,49.482312));
-        canvas.setCenter(new LngLat(144.9630, -37.8139));
+        //canvas.setCenter(new LngLat(144.9630, -37.8139));
+        canvas.setCenter(new LngLat(33.959580, -83.375382));
 		
 		canvas.addLayer(new TileLayer(new OpenStreetMapService(14), 8));
         canvas.addLayer(layer);
@@ -49,7 +53,7 @@ class Map extends Sprite
         canvas.initialize();
 		
 		// test - click to add Points
-        //canvas.addEventListener(MapEvent.MAP_CLICKED, function(e:MapEvent) { layer.addPoint(e.point.lng,e.point.lat); });
+        canvas.addEventListener(MapEvent.MAP_CLICKED, function(e:MapEvent) { layer.addPoint(e.point.lng,e.point.lat); });
         canvas.addEventListener(MapEvent.MAP_MOUSEMOVE, mouseMove);
 		
 		layer.update();
@@ -58,16 +62,15 @@ class Map extends Sprite
 	public function stageResized(e:Event)
     {
 		//toolbar.setSize(640, 30);
-		canvas.setSize(640, 960);
+		//canvas.setSize(640, 960);
 		
-        //toolbar.setSize(flash.Lib.current.stage.stageWidth, 30);
-        //canvas.setSize(flash.Lib.current.stage.stageWidth, flash.Lib.current.stage.stageHeight);
+        toolbar.onResize(flash.Lib.current.stage.stageWidth, 30);
+        canvas.onResize(flash.Lib.current.stage.stageWidth, flash.Lib.current.stage.stageHeight);
     }
 
     function mouseMove(e:haxemap.core.MapEvent)
     {
-       //toolbar.setText("longitude:" + LngLat.fmtCoordinate(e.point.lng) + 
-                       //" latitude:" + LngLat.fmtCoordinate(e.point.lat));
+       toolbar.setText("longitude:" + LngLat.fmtCoordinate(e.point.lng) + " latitude:" + LngLat.fmtCoordinate(e.point.lat));
 		trace("toolbar.width: " + toolbar.width);
 		trace("toolbar.scaleX: " + toolbar.scaleX);
 
@@ -109,9 +112,7 @@ class CircleButton extends flash.display.Sprite
 	}
 }
 
-import haxemap.core.Layer;
-import flash.geom.Point;
-import flash.events.MouseEvent;
+
 
 class InteractiveLayer extends Layer
 {
@@ -127,6 +128,7 @@ class InteractiveLayer extends Layer
   
    public function addPoint(lng:Float, lat:Float, forceUpdate:Bool=true )
    {
+       trace("addPoints called"+lng+" "+lat);
        points.push(new LngLat(lng, lat));
 	   
 	   updateContent(forceUpdate);

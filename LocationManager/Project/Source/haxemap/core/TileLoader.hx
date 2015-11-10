@@ -116,6 +116,7 @@ class ImageLoader extends Loader
 		#if flash
 		this.load(urlRequest,  new LoaderContext(true));
         #else 
+        trace("loading tile:"+url);
 		this.load(urlRequest);
 		#end
 		
@@ -177,7 +178,11 @@ class TileLoader extends EventDispatcher
        for (i in 0...threads) 
        {
            var l = new ImageLoader(i);
+
+           l.contentLoaderInfo.addEventListener(flash.events.Event.INIT, loaderStatus);
+           
            l.contentLoaderInfo.addEventListener(flash.events.Event.COMPLETE, loaderComplete);
+           
            l.contentLoaderInfo.addEventListener(flash.events.IOErrorEvent.IO_ERROR, loaderError);
            loaders.push(l);
 
@@ -416,6 +421,10 @@ class TileLoader extends EventDispatcher
 
     }
 
+    function loaderStatus(e:Event){
+      trace("loader activated:"+e);
+    }
+
     function loaderComplete(e:Event)
     {
 
@@ -423,6 +432,8 @@ class TileLoader extends EventDispatcher
            return;
  
         var loader:ImageLoader = e.target.loader;
+
+        trace("loader success:");
 
 		if (!loader.ignore) 
         {

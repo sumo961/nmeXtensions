@@ -115,7 +115,9 @@ static LocationErrorCallback onErrorCB;
     // attempt to acquire location and thus, the amount of power that will be consumed.
     //locationManager.desiredAccuracy = [[setupInfo objectForKey:kSetupInfoKeyAccuracy] doubleValue];
     // Setting to best accuracy. (May change in future versions)
-    locationManager.desiredAccuracy = [[NSNumber numberWithDouble:kCLLocationAccuracyBest] doubleValue];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     
     // no te olvides de la distancia
     

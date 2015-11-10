@@ -1,17 +1,23 @@
 package com.emibap.locationmanagersample;
 
-import haxe.BaseCode;
-import nme.display.Sprite;
-import nme.display.StageAlign;
-import nme.display.StageScaleMode;
-import nme.Lib;
-import nme.text.TextField;
-import nme.text.TextFormat;
-import nme.events.MouseEvent;
+import haxe.crypto.BaseCode;
+import flash.display.Sprite;
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
+import flash.Lib;
+import flash.text.TextField;
+import flash.text.TextFormat;
+import flash.events.MouseEvent;
 import haxemap.Map;
 
+
+
 /**
- * @author Emiliano Angelini
+ * Updated 2015 for OpenFL 3/iOS 8 Hartmut Koenitz hkoenitz@gmail.com 
+
+ NSLocationWhenInUseUsageDescription
+
+ @author Emiliano Angelini
  *
  * **IMPORTANT**
  *	If you use the sample code, dont't expect it to have the same functionality than a commercial GPS or Apple's Maps App.
@@ -37,7 +43,7 @@ class LocationManagerSample extends Sprite {
 		
 		super ();
 		
-		//debug = true;
+		debug = true;
 		firstLock = true;
 		
 		initialize ();
@@ -160,8 +166,8 @@ class LocationManagerSample extends Sprite {
 	
 	private function log(s:String):Void {
 		trace("Log: " + s);
-		statusTxt.text += s + "\n";
-		statusTxt.scrollV = statusTxt.maxScrollV;
+		/*statusTxt.text += s + "\n";
+		statusTxt.scrollV = statusTxt.maxScrollV;*/
 	}
 	
 	// Entry point

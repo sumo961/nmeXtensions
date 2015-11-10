@@ -68,7 +68,7 @@ class Component extends Sprite
        return this._size;
     }
 
-    function onResize(w:Float, h:Float)
+    public function onResize(w:Float, h:Float)
     {
     }
 }

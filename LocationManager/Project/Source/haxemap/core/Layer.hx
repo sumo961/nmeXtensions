@@ -67,12 +67,12 @@ class Layer extends Sprite
 
         this.scalable = scalable;        
         this.mapservice = map_service;
- 	this.initialized = false;
+ 	      this.initialized = false;
         this.updateEnabled = false;
         
-		//this.bbox = new Rectangle(0,0,flash.Lib.current.stage.width, flash.Lib.current.stage.height);
-        //this.canvascenter = new Point(this.bbox.width/2.0,this.bbox.height/2.0);
-        //this.center = null;
+		    this.bbox = new Rectangle(0,0,flash.Lib.current.stage.width, flash.Lib.current.stage.height);
+        this.canvascenter = new Point(this.bbox.width/2.0,this.bbox.height/2.0);
+        this.center = null;
         this.zoom = 0;
         this.lastxy = null;
         this.lastcxy = null;

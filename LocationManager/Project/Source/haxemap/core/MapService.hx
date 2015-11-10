@@ -106,7 +106,7 @@ class BaseMapService {
 
 }
 
-class OpenStreetMapService extends BaseMapService, implements MapService
+class OpenStreetMapService extends BaseMapService implements MapService
 {
     // Details:
     // ---------------------------------------------------------
@@ -152,13 +152,16 @@ class OpenStreetMapService extends BaseMapService, implements MapService
     {
        if (!isValid(t)) return "";
  
-	   //trace("http://tile.openstreetmap.org/" + (t.z) + "/" + (t.x) + "/" + (t.y) + ".png");
+	   trace("http://tile.openstreetmap.org/" + (t.z) + "/" + (t.x) + "/" + (t.y) + ".png");
+
 	   
        //if (!proxy)
         //  return "http://tile.openstreetmap.org/" + (t.z) + "/" + (t.x) + "/" + (t.y) + ".png";
 
 		var num = Math.ceil(Math.random() * 4); 
 		
+    trace("http://otile" + num + ".mqcdn.com/tiles/1.0.0/osm/" + (t.z) + "/" + (t.x) + "/" + (t.y) + ".png");
+    
 	   if (!proxy)
 			return "http://otile" + num + ".mqcdn.com/tiles/1.0.0/osm/" + (t.z) + "/" + (t.x) + "/" + (t.y) + ".png";
 		  
